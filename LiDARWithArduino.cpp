@@ -1,12 +1,28 @@
 #include "Adafruit_VL53L0X.h"
-
+/******************************************************************************
+* Author : Thomas Talbot 
+* Last Date Modified : 11/16/2021
+* Purpose : Using the Adafruit VL53L0X library for the Arduino Nano, if the 
+* sensor detects a mm reading less than the predefined threshold then output
+* a logic HIGH signal to the corresponding digital out pin. 
+******************************************************************************/
 // address we will assign if dual sensor is present
 #define LOX1_ADDRESS 0x30
 #define LOX2_ADDRESS 0x31
 
-// set the pins to shutdown
-#define SHT_LOX1 7
-#define SHT_LOX2 6
+
+// The pins for shutdown
+//Sensor 1 - A2
+//Sensor 2 - A3
+
+//The Digital Out pins if a sensor has reading < threshold
+//Sensor 1 - A6
+//Sensor 2 - A7
+
+//The threshold value to detect motion
+#define threshold 200 
+
+
 
 // objects for the vl53l0x
 Adafruit_VL53L0X lox1 = Adafruit_VL53L0X();
@@ -65,6 +81,14 @@ void read_dual_sensors() {
   Serial.print(F("1: "));
   if(measure1.RangeStatus != 4) {     // if not out of range
     Serial.print(measure1.RangeMilliMeter);
+    if(measure1.RangeMilliMeter<threshold)
+    {
+      Serial.println(F("Sensor 1 triggered!")); 
+      digitalWrite(A6, HIGH); 
+    }
+    else{
+      digitalWrite(A6, LOW); 
+    }
   } else {
     Serial.print(F("Out of range"));
   }
@@ -75,6 +99,15 @@ void read_dual_sensors() {
   Serial.print(F("2: "));
   if(measure2.RangeStatus != 4) {
     Serial.print(measure2.RangeMilliMeter);
+    if(measure2.RangeMilliMeter< threshold)
+    {
+      Serial.println(F("Sensor 2 triggered!")); 
+      digitalWrite(A7, HIGH);
+    }
+    else
+    {
+      digitalWrite(A7, LOW); 
+    }
   } else {
     Serial.print(F("Out of range"));
   }
@@ -90,6 +123,8 @@ void setup() {
 
   pinMode(A2, OUTPUT);
   pinMode(A3, OUTPUT);
+  pinMode(A6, OUTPUT); 
+  pinMode(A7, OUTPUT); 
 
   Serial.println(F("Shutdown pins inited..."));
 
@@ -97,6 +132,13 @@ void setup() {
   digitalWrite(A3, LOW);
 
   Serial.println(F("Both in reset mode...(pins are low)"));
+
+  Serial.println((F("The sensor output pins inited..."))); 
+
+  digitalWrite(A6, LOW);
+  digitalWrite(A7, LOW); 
+
+  Serial.println((F("Both sensor pins are low"))); 
   
   
   Serial.println(F("Starting..."));
