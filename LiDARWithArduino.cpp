@@ -78,41 +78,41 @@ void read_dual_sensors() {
   lox2.rangingTest(&measure2, false); // pass in 'true' to get debug data printout!
 
   // print sensor one reading
-  Serial.print(F("1: "));
+  //Serial.print(F("1: "));
   if(measure1.RangeStatus != 4) {     // if not out of range
-    Serial.print(measure1.RangeMilliMeter);
+    //Serial.print(measure1.RangeMilliMeter);
     if(measure1.RangeMilliMeter<threshold)
     {
-      Serial.println(F("Sensor 1 triggered!")); 
-      digitalWrite(A6, HIGH); 
+      //Serial.println(F("Sensor 1 triggered!")); 
+      digitalWrite(6, HIGH); 
     }
     else{
-      digitalWrite(A6, LOW); 
+      digitalWrite(6, LOW); 
     }
   } else {
-    Serial.print(F("Out of range"));
+    //Serial.print(F("Out of range"));
   }
   
-  Serial.print(F(" "));
+  //Serial.print(F(" "));
 
   // print sensor two reading
-  Serial.print(F("2: "));
+  //Serial.print(F("2: "));
   if(measure2.RangeStatus != 4) {
-    Serial.print(measure2.RangeMilliMeter);
+    //Serial.print(measure2.RangeMilliMeter);
     if(measure2.RangeMilliMeter< threshold)
     {
-      Serial.println(F("Sensor 2 triggered!")); 
-      digitalWrite(A7, HIGH);
+      //Serial.println(F("Sensor 2 triggered!")); 
+      digitalWrite(7, HIGH);
     }
     else
     {
-      digitalWrite(A7, LOW); 
+      digitalWrite(7, LOW); 
     }
   } else {
-    Serial.print(F("Out of range"));
+    //Serial.print(F("Out of range"));
   }
   
-  Serial.println();
+  //Serial.println();
 }
 
 void setup() {
@@ -126,22 +126,22 @@ void setup() {
   pinMode(A6, OUTPUT); 
   pinMode(A7, OUTPUT); 
 
-  Serial.println(F("Shutdown pins inited..."));
+  //Serial.println(F("Shutdown pins inited..."));
 
   digitalWrite(A2, LOW);
   digitalWrite(A3, LOW);
 
-  Serial.println(F("Both in reset mode...(pins are low)"));
+  //Serial.println(F("Both in reset mode...(pins are low)"));
 
-  Serial.println((F("The sensor output pins inited..."))); 
+  //Serial.println((F("The sensor output pins inited..."))); 
 
-  digitalWrite(A6, LOW);
-  digitalWrite(A7, LOW); 
+  digitalWrite(6, LOW);
+  digitalWrite(7, LOW); 
 
-  Serial.println((F("Both sensor pins are low"))); 
+  //Serial.println((F("Both sensor pins are low"))); 
   
   
-  Serial.println(F("Starting..."));
+  //Serial.println(F("Starting..."));
   setID();
  
 }
