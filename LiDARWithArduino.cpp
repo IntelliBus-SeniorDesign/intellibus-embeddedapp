@@ -81,7 +81,7 @@ void read_dual_sensors() {
     Serial.print(measure1.RangeMilliMeter);
     if(measure1.RangeMilliMeter<threshold)
     {
-      Serial.println(F("Sensor 1 triggered!")); 
+      Serial.println(F(" Sensor 1 triggered!")); 
       digitalWrite(6, HIGH); 
     }
     else{
@@ -101,7 +101,7 @@ void read_dual_sensors() {
     Serial.print(measure2.RangeMilliMeter);
     if(measure2.RangeMilliMeter< threshold)
     {
-      Serial.println(F("Sensor 2 triggered!")); 
+      Serial.println(F(" Sensor 2 triggered!")); 
       digitalWrite(7, HIGH);
       //sensor2responses++; 
     }
